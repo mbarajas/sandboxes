@@ -1,16 +1,23 @@
 package main
 
-import "fmt"
+import (
+  "fmt"
+  "encoding/json"
+  "net/http"
+)
 
 type Person struct{
   name string
   age int
 }
 
+type Human interface {
+  greet()
+}
+
 type TheNumber int
 
 type theFunction func(int, int) int
-
 
 func (p Person) greet() {
   fmt.Println("Hello, my name is", p.name)
@@ -36,6 +43,48 @@ func closureTest() {
   fmt.Println(multiply(2, 3))
 }
 
+func pointerTest(x *int) {
+  *x = 0
+}
+
+func ternaryTest() {
+  age := 20
+  if age >= 18 {
+    fmt.Println("Adult")
+  } else {
+    fmt.Println("Not adult")
+  }
+}
+
+func fizzBuzz(n int) {
+  for i := 1; i <= n; i++ {
+    if i % 3 == 0 && i % 5 == 0 {
+      fmt.Println("FizzBuzz")
+    } else if i % 3 == 0 {
+      fmt.Println("Fizz")
+    } else if i % 5 == 0 {
+      fmt.Println("Buzz")
+    } else {
+      fmt.Println(i)
+    }
+  }
+}
+
+func callAPI() {
+  resp, err := http.Get("https://jsonplaceholder.typicode.com/todos/1")
+  if err != nil {
+    fmt.Println(err)
+  }
+  defer resp.Body.Close()
+
+  var data map[string]interface{}
+  json.NewDecoder(resp.Body).Decode(&data)
+
+  finalData, _ := json.MarshalIndent(data, "", "  ")
+
+  fmt.Println("API Response:", string(finalData))
+}
+
 func main() {
   fmt.Println("Hello, World!")
   p := Person{"John", 30}
@@ -49,6 +98,13 @@ func main() {
   fmt.Println(n)
 
   theFunctionTest(add)
+  ternaryTest()
+
+  x := 5
+  pointerTest(&x)
+  fmt.Println(x)
+
+  callAPI()
 }
 
 
