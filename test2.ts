@@ -10,7 +10,7 @@ console.log(sum);
 interface Person {
   name: string;
   age: number;
-  getDetails: function(): string;
+  getDetails(): string;
 }
 
 function greet(person: Person): string {
@@ -19,7 +19,7 @@ function greet(person: Person): string {
 
 const person = {
   name: 'John',
-  age: 30
+  age: 30,
   getDetails() {
     return `${this.name} is ${this.age} years old`;
   }

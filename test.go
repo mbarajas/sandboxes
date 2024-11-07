@@ -85,6 +85,31 @@ func callAPI() {
   fmt.Println("API Response:", string(finalData))
 }
 
+func typeAssertion(params interface{}) {
+  switch v := params.(type) {
+  case string:
+    fmt.Println("String:", v)
+  case int:
+    fmt.Println("Int:", v)
+  default:
+    fmt.Println("Unknown type")
+  }
+}
+
+func forLoopTest(params []int) {
+  for i := 0; i < len(params); i++ {
+    fmt.Println(params[i])
+  }
+
+  for i, v := range params {
+    fmt.Println(i, v)
+  }
+
+  for _, v := range params {
+    fmt.Println(v)
+  }
+}
+
 func main() {
   fmt.Println("Hello, World!")
   p := Person{"John", 30}
@@ -105,6 +130,8 @@ func main() {
   fmt.Println(x)
 
   callAPI()
+
+  typeAssertion("Hello")
 }
 
 
